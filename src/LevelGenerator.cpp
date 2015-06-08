@@ -53,7 +53,7 @@ LevelData::LevelData(const char *filename)
 
 void LevelData::read(const char *filename)
 {
-    ifstream readerFile;
+    ifstream reader;
     string line, token;
     string delimiter = " ";
     size_t pos;
@@ -61,10 +61,10 @@ void LevelData::read(const char *filename)
     if(filename == NULL)
         return;
 
-    readerFile.open(filename,ios::in);
+    reader.open(filename,ios::in);
     cout << "READ" << endl;
 
-    while(getline(readerFile,line))
+    while(getline(reader,line))
     {
         pos = 0;
 
@@ -77,7 +77,7 @@ void LevelData::read(const char *filename)
         cout << "END OF LINE" << endl;
     }
     //cout << "Last " << token << endl;
-    readerFile.close();
+    reader.close();
 }
 
 
