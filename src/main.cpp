@@ -28,10 +28,20 @@ using namespace std;
 using namespace LevelGenerator;
 
 
-int main(void)
+int main(int argc, char **argv)
 {
-    LevelData data("files/00.txt");
-    data.generateFile("files/00.targetx");
+    if(argc < 3)
+    {
+        cerr << "Usage: TX-level-generator " << "<text_file> "
+        << "<file_to_write_data>" << endl;
+        return -1;
+    }
+
+    cout << "TX Level Generator - The level generator for Target Xplosion\n"
+    << "Copyright (C) 2015  Luxon Jean-Pierre\n" << endl;
+
+    LevelData data(argv[1]);
+    data.generateFile(argv[2]);
 
     return 0;
 }
