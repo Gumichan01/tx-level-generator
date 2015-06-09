@@ -13,10 +13,10 @@ This program generates a level file that contains information about enemies
 In a console interface, use the program like this:
 
 On Linux:  
-./TX-level-generator text_file file_to_write_data  
+    ./TX-level-generator [text\_file] [file\_to\_write\_data]  
 
 On Windows:
-TX-level-generator.exe text_file file_to_write_data  
+    TX-level-generator.exe [text\_file] [file\_to\_write\_data]  
 
 
 ### The text file ###
@@ -34,7 +34,7 @@ If you do not put the number, the program may fail or generate a bad file.
 
 After that, you have several lines. Each line represents an enemy data.  
 The syntax of each data is:  
-<type> <health> <attack> <defense> <X_position> <Y_position> <width> <height>
+    [type] [health] [attack] [defense] [X\_position] [Y\_position] [width height]
 
 **If at least one field is mising or if you put too much fields, the program will fail.**  
 
