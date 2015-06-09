@@ -35,7 +35,6 @@
 
 struct EnemyData
 {
-
     uint32_t type;              /**< from 0 to 100: Boss; > 100: other enemies */
     unsigned int hp;            /**< The health points of the enemy */
     unsigned int att;           /**< The attack value of the enemy */

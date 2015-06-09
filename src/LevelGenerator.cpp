@@ -31,9 +31,13 @@
 
 
 #include <fstream>
+#include <sstream>
 
 #include "LevelGenerator.hpp"
 #include "EnemyData.hpp"
+
+
+#define NB_FIELD 8
 
 
 using namespace std;
@@ -56,7 +60,10 @@ void LevelData::read(const char *filename)
     ifstream reader;
     string line, token;
     string delimiter = " ";
+    stringstream valueStream;
+
     size_t pos;
+    int field, i;
 
     if(filename == NULL)
         return;
@@ -64,17 +71,49 @@ void LevelData::read(const char *filename)
     reader.open(filename,ios::in);
     cout << "READ" << endl;
 
-    while(getline(reader,line))
+
+    if(getline(reader,line))
+    {
+        if((pos = line.find(delimiter)) != string::npos)
+        {
+            token = line.substr(0, pos);
+            valueStream.clear();
+            valueStream.str("");
+            valueStream.str(token);
+            valueStream >> size;
+        }
+    }
+
+    cout << "Size - " << size << endl;
+    i = 0;
+
+    while( i < size && getline(reader,line))
     {
         pos = 0;
+        field = 0;
 
         while((pos = line.find(delimiter)) != string::npos)
         {
             token = line.substr(0, pos);
+
+            /*valueStream.clear();
+            valueStream.str("");
+            valueStream.str(token);
+
+            switch(field)
+            {
+                case 1 :
+            }*/
+
             cout << token << endl;
             line.erase(0, pos + delimiter.length());
+            field++;
         }
         cout << "END OF LINE" << endl;
+        if(field != NB_FIELD)
+        {
+            cerr << "Error: this line has not all fields " << field << endl;
+        }
     }
     //cout << "Last " << token << endl;
     reader.close();
