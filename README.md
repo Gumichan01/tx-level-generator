@@ -13,10 +13,10 @@ This program generates a level file that contains information about enemies
 In a console interface, use the program like this:
 
 On Linux:  
-./TX-level-generator <text_file> <file_to_write_data>  
+./TX-level-generator text_file file_to_write_data  
 
 On Windows:
-TX-level-generator.exe <text_file> <file_to_write_data>  
+TX-level-generator.exe text_file file_to_write_data  
 
 
 ### The text file ###
@@ -42,7 +42,7 @@ The syntax of each data is:
 ### The generated file ###
 
 In Target Xpolosion, the generated file must have the *.targetx* extension.  
-The program does not check if the destination file has this extension. 
+The program does not check if the destination file has this extension.  
 The file contains a tag (0xCF3A1 or 848801) followed by the number of objects  
 and has the same tag at the end.
 
