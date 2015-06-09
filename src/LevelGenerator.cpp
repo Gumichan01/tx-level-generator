@@ -190,21 +190,27 @@ void LevelData::generateFile(const char *filename)
     s.str("");
     s << tag;
     str = s.str();
+
+    cout << "Writing tag" << endl;
     writer.write(str.c_str(),str.size());
 
     s.clear();
     s.str("");
     s << size;
     str = s.str();
+
+    cout << "Writing size" << endl;
     writer.write(str.c_str(),str.size());
 
     const int n = size;
 
     for(int i = 0; i < n; i++)
     {
+        cout << "Writing data #" << (i+1) << endl;
         writeData(&data[i],&writer);
     }
 
+    cout << "Writing tag at the end of the file" << endl;
     writer.write(str.c_str(),str.size());
     writer.close();
 }
