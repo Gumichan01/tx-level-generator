@@ -129,7 +129,7 @@ void LevelData::read(const char *filename)
                 case 3 :    valueStream >> data[i].sh;
                             break;
 
-                case 4 :    valueStream >> data[i].x;
+                case 4 :    valueStream >> data[i].time;
                             break;
 
                 case 5 :    valueStream >> data[i].y;
@@ -162,7 +162,7 @@ void LevelData::read(const char *filename)
         {
             cout << "Got Data "<<i<<" : \n" << data[i].type << " "
             << data[i].hp << " " << data[i].att << " " << data[i].sh
-            << " " << data[i].x << " " << data[i].y << " " << data[i].w
+            << " " << data[i].time << " " << data[i].y << " " << data[i].w
             << " " << data[i].h << endl;
         }
 
@@ -272,7 +272,7 @@ void LevelData::writeData(const EnemyData *data, ofstream *writer)
 
     s.clear();
     s.str("");
-    s << data->x;
+    s << data->time;
     str = s.str();
     writer->write(str.c_str(),str.size());
 

@@ -24,8 +24,8 @@ On Windows:
 This is an example of a text file you have to write:  
 
     2 
-    101 20 10 5 100 100 47 47 
-    101 20 10 5 100 200 47 47 
+    101 20 10 5 4000 100 47 47 
+    101 20 10 5 4500 200 47 47 
 
 **Do not forget to add the space before the next line.**  
 
@@ -34,7 +34,10 @@ If you do not put the number, the program may fail or generate a bad file.
 
 After that, you have several lines. Each line represents an enemy data.  
 The syntax of each data is:  
-    [type] [health] [attack] [defense] [X\_position] [Y\_position] [width height]
+    [type] [health] [attack] [defense] [time] [Y\_position] [width height]
+
+The X position is automatically set by the game. You do not need to handle it.  
+The *time* value refers to the moment an enemy must go in the game.  
 
 **If at least one field is mising or if you put too much fields, the program will fail.**  
 

@@ -39,7 +39,7 @@ struct EnemyData
     unsigned int hp;            /**< The health points of the enemy */
     unsigned int att;           /**< The attack value of the enemy */
     unsigned int sh;            /**< The defense value of the enemy */
-    int16_t x;                  /**< The X position of the enemy */
+    int64_t time;               /**< The time for the enemy to come */
     int16_t y;                  /**< The Y position of the enemy */
     int32_t w;                  /**< The width of the enemy */
     int32_t h;                  /**< The height of the enemy */
