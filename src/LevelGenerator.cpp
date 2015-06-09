@@ -91,6 +91,7 @@ void LevelData::read(const char *filename)
     if(data == NULL)
     {
         cerr << "Error while creating data; Invalid size: " << size << endl;
+        reader.close();
         return;
     }
 
@@ -147,6 +148,7 @@ void LevelData::read(const char *filename)
             << " fields; Got " << field <<" fields" << endl;
             delete [] data;
             data = NULL;
+            reader.close();
             break;
         }
         else
@@ -181,22 +183,88 @@ void LevelData::generateFile(const char *filename)
     if(filename == NULL)
         return;
 
-    writer.open(filename,ios::in|ios::binary|ios::trunc);
+    writer.open(filename,ios::out|ios::binary|ios::trunc);
     cout << "Writing into file: " << filename << endl;
 
     s.clear();
     s.str("");
     s << tag;
     str = s.str();
-
     writer.write(str.c_str(),str.size());
 
+    s.clear();
+    s.str("");
+    s << size;
+    str = s.str();
+    writer.write(str.c_str(),str.size());
 
+    const int n = size;
 
+    for(int i = 0; i < n; i++)
+    {
+        writeData(&data[i],&writer);
+    }
 
-
+    writer.write(str.c_str(),str.size());
     writer.close();
 }
+
+
+void LevelData::writeData(const EnemyData *data, ofstream *writer)
+{
+    stringstream s;
+    string str;
+
+    s.clear();
+    s.str("");
+    s << data->type;
+    str = s.str();
+    writer->write(str.c_str(),str.size());
+
+    s.clear();
+    s.str("");
+    s << data->hp;
+    str = s.str();
+    writer->write(str.c_str(),str.size());
+
+    s.clear();
+    s.str("");
+    s << data->att;
+    str = s.str();
+    writer->write(str.c_str(),str.size());
+
+
+    s.clear();
+    s.str("");
+    s << data->sh;
+    str = s.str();
+    writer->write(str.c_str(),str.size());
+
+    s.clear();
+    s.str("");
+    s << data->x;
+    str = s.str();
+    writer->write(str.c_str(),str.size());
+
+    s.clear();
+    s.str("");
+    s << data->y;
+    str = s.str();
+    writer->write(str.c_str(),str.size());
+
+    s.clear();
+    s.str("");
+    s << data->w;
+    str = s.str();
+    writer->write(str.c_str(),str.size());
+
+    s.clear();
+    s.str("");
+    s << data->h;
+    str = s.str();
+    writer->write(str.c_str(),str.size());
+}
+
 
 
 LevelData::~LevelData()

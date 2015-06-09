@@ -28,11 +28,9 @@ using namespace std;
 using namespace LevelGenerator;
 
 
-int main()
+int main(void)
 {
     LevelData data("files/00.txt");
-
-    cout << "Hello world!" << endl;
     data.generateFile("files/00.targetx");
 
     return 0;

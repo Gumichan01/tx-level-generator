@@ -35,6 +35,7 @@
 #include <iostream>
 
 
+using namespace std;
 struct EnemyData;
 
 
@@ -48,6 +49,7 @@ class LevelData
     EnemyData *data;    /**< Information about each enemy */
 
     void read(const char *filename);
+    void writeData(const EnemyData *data,ofstream *writer);
 
 public:
 
