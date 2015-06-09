@@ -41,7 +41,14 @@ int main(int argc, char **argv)
     << "Copyright (C) 2015  Luxon Jean-Pierre\n" << endl;
 
     LevelData data(argv[1]);
-    data.generateFile(argv[2]);
+
+    if(data.generateFile(argv[2]) == false)
+    {
+        cerr << "Cannot generate the following file: " << argv[2] << endl;
+        return -2;
+    }
+    else
+        cout << "The generation of '" << argv[2] << "' was done with success" << endl;
 
     return 0;
 }

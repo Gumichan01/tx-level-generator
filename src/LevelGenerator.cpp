@@ -64,13 +64,20 @@ void LevelData::read(const char *filename)
     size_t pos;
     int field;
     int i = 0;
+    size = 0;
 
     if(filename == NULL)
         return;
 
     reader.open(filename,ios::in);
-    cout << "Reading file: " << filename << endl;
 
+    if(reader.is_open() == false)
+    {
+        cerr << "Cannot open " << filename << endl;
+        return;
+    }
+
+    cout << "Reading file: " << filename << endl;
 
     if(getline(reader,line))
     {
@@ -164,7 +171,7 @@ void LevelData::read(const char *filename)
 
     if(i < size)
     {
-        cout << "Some data are missing" << endl;
+        cout << "WARNING: Some data are missing, but the generation can be done" << endl;
         size = i;
     }
 
@@ -173,7 +180,7 @@ void LevelData::read(const char *filename)
 
 
 
-void LevelData::generateFile(const char *filename)
+bool LevelData::generateFile(const char *filename)
 {
     ofstream writer;
     stringstream s;
@@ -181,7 +188,22 @@ void LevelData::generateFile(const char *filename)
     const uint32_t tag = 0xCF3A1;
 
     if(filename == NULL)
-        return;
+    {
+        cerr << "Invalid file name: NULL" << endl;
+        return false;
+    }
+
+    if(data == NULL)
+    {
+        cerr << "No data available" << endl;
+        return false;
+    }
+
+    if(size < 0)
+    {
+        cerr << "Invalid size" << endl;
+        return false;
+    }
 
     writer.open(filename,ios::out|ios::binary|ios::trunc);
     cout << "Writing into file: " << filename << endl;
@@ -213,6 +235,8 @@ void LevelData::generateFile(const char *filename)
     cout << "Writing tag at the end of the file" << endl;
     writer.write(str.c_str(),str.size());
     writer.close();
+
+    return true;
 }
 
 

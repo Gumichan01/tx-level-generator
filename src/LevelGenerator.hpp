@@ -54,7 +54,7 @@ class LevelData
 public:
 
     LevelData(const char *filename);
-    void generateFile(const char *filename);
+    bool generateFile(const char *filename);
 
     ~LevelData();
 
