@@ -30,7 +30,10 @@ using namespace LevelGenerator;
 
 int main()
 {
-    LevelData("files/00.txt");
+    LevelData data("files/00.txt");
+
     cout << "Hello world!" << endl;
+    data.generateFile("files/00.targetx");
+
     return 0;
 }

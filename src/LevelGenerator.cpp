@@ -49,7 +49,6 @@ namespace LevelGenerator
 
 LevelData::LevelData(const char *filename)
 {
-    cout << "Constructor" << endl;
     data = NULL;
     read(filename);
 }
@@ -160,15 +159,48 @@ void LevelData::read(const char *filename)
 
         i++;
     }
-    //cout << "Last " << token << endl;
+
+    if(i < size)
+    {
+        cout << "Some data are missing" << endl;
+        size = i;
+    }
+
     reader.close();
 }
 
 
 
+void LevelData::generateFile(const char *filename)
+{
+    ofstream writer;
+    stringstream s;
+    string str;
+    const uint32_t tag = 0xCF3A1;
+
+    if(filename == NULL)
+        return;
+
+    writer.open(filename,ios::in|ios::binary|ios::trunc);
+    cout << "Writing into file: " << filename << endl;
+
+    s.clear();
+    s.str("");
+    s << tag;
+    str = s.str();
+
+    writer.write(str.c_str(),str.size());
+
+
+
+
+
+    writer.close();
+}
+
+
 LevelData::~LevelData()
 {
-    cout << "Destructor" << endl;
     delete [] data;
 }
 

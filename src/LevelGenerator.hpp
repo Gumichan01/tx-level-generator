@@ -34,7 +34,6 @@
 
 #include <iostream>
 
-#define DEBUG_GEN
 
 struct EnemyData;
 
@@ -53,14 +52,11 @@ class LevelData
 public:
 
     LevelData(const char *filename);
-
-    EnemyData * getData(void);
+    void generateFile(const char *filename);
 
     ~LevelData();
 
 };
-
-bool generateFile(const char *filename);
 
 };
 
