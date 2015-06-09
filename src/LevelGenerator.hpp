@@ -34,6 +34,8 @@
 
 #include <iostream>
 
+#define DEBUG_GEN
+
 struct EnemyData;
 
 

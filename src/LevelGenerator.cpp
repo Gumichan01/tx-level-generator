@@ -29,7 +29,7 @@
 *
 */
 
-
+#include <new>
 #include <fstream>
 #include <sstream>
 
@@ -63,13 +63,14 @@ void LevelData::read(const char *filename)
     stringstream valueStream;
 
     size_t pos;
-    int field, i;
+    int field;
+    int i = 0;
 
     if(filename == NULL)
         return;
 
     reader.open(filename,ios::in);
-    cout << "READ" << endl;
+    cout << "Reading file: " << filename << endl;
 
 
     if(getline(reader,line))
@@ -84,8 +85,15 @@ void LevelData::read(const char *filename)
         }
     }
 
-    cout << "Size - " << size << endl;
-    i = 0;
+    cout << "Number of data to extract: " << size << endl;
+
+    data = new (nothrow) EnemyData[size];
+
+    if(data == NULL)
+    {
+        cerr << "Error while creating data; Invalid size: " << size << endl;
+        return;
+    }
 
     while( i < size && getline(reader,line))
     {
@@ -96,24 +104,61 @@ void LevelData::read(const char *filename)
         {
             token = line.substr(0, pos);
 
-            /*valueStream.clear();
+            valueStream.clear();
             valueStream.str("");
             valueStream.str(token);
 
             switch(field)
             {
-                case 1 :
-            }*/
+                case 0 :    valueStream >> data[i].type;
+                            break;
 
-            cout << token << endl;
+                case 1 :    valueStream >> data[i].hp;
+                            break;
+
+                case 2 :    valueStream >> data[i].att;
+                            break;
+
+                case 3 :    valueStream >> data[i].sh;
+                            break;
+
+                case 4 :    valueStream >> data[i].x;
+                            break;
+
+                case 5 :    valueStream >> data[i].y;
+                            break;
+
+                case 6 :    valueStream >> data[i].w;
+                            break;
+
+                case 7 :    valueStream >> data[i].h;
+                            break;
+
+                default :   break;
+            }
+
             line.erase(0, pos + delimiter.length());
             field++;
         }
-        cout << "END OF LINE" << endl;
+
+        // End of line. Did we read the expected fields?
         if(field != NB_FIELD)
         {
-            cerr << "Error: this line has not all fields " << field << endl;
+            cerr << "Error: line #" << (i+2) << ": Expected " << NB_FIELD
+            << " fields; Got " << field <<" fields" << endl;
+            delete [] data;
+            data = NULL;
+            break;
         }
+        else
+        {
+            cout << "Got Data "<<i<<" : \n" << data[i].type << " "
+            << data[i].hp << " " << data[i].att << " " << data[i].sh
+            << " " << data[i].x << " " << data[i].y << " " << data[i].w
+            << " " << data[i].h << endl;
+        }
+
+        i++;
     }
     //cout << "Last " << token << endl;
     reader.close();
