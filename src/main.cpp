@@ -33,12 +33,12 @@ int main(int argc, char **argv)
     if(argc < 3)
     {
         cerr << "Usage: TX-level-generator " << "<text_file> "
-        << "<file_to_write_data>" << endl;
+             << "<file_to_write_data>" << endl;
         return -1;
     }
 
     cout << "TX Level Generator - The level generator for Target Xplosion\n"
-    << "Copyright (C) 2015  Luxon Jean-Pierre\n" << endl;
+         << "Copyright (C) 2015 Luxon Jean-Pierre\n" << endl;
 
     LevelData data(argv[1]);
 

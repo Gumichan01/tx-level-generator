@@ -28,6 +28,9 @@
 *
 */
 
+#include <cstdio>
+#include <cstdlib>
+
 #include <new>
 #include <fstream>
 #include <sstream>
@@ -190,10 +193,10 @@ void LevelData::read(const char *filename)
 
 bool LevelData::generateFile(const char *filename)
 {
-    ofstream writer;
+    FILE * writer;
     stringstream s;
     string str;
-    const uint32_t tag = 0xCF3A1;
+    const int tag = 0xCF3A1;
 
     if(filename == NULL)
     {
@@ -213,94 +216,49 @@ bool LevelData::generateFile(const char *filename)
         return false;
     }
 
-    writer.open(filename,ios::out|ios::binary|ios::trunc);
+    writer = fopen(filename,"wb");
+
+    if(writer == NULL)
+    {
+        cerr << "Internal error : try again !" << endl;
+        return false;
+    }
+
     cout << "Writing into file: " << filename << endl;
 
-    s.clear();
-    s.str("");
-    s << tag;
-    str = s.str();
-
     cout << "Writing tag" << endl;
-    writer.write(str.c_str(),str.size());
-
-    s.clear();
-    s.str("");
-    s << size;
-    str = s.str();
+    fwrite(&tag,sizeof(int),1,writer);
 
     cout << "Writing size" << endl;
-    writer.write(str.c_str(),str.size());
+    fwrite(&size,sizeof(int),1,writer);
 
     const int n = size;
 
     for(int i = 0; i < n; i++)
     {
         cout << "Writing data #" << (i+1) << endl;
-        writeData(&data[i],&writer);
+        writeData(&data[i],writer);
     }
 
     cout << "Writing tag at the end of the file" << endl;
-    writer.write(str.c_str(),str.size());
-    writer.close();
+
+    fwrite(&tag,sizeof(int),1,writer);
+    fclose(writer);
 
     return true;
 }
 
 
-void LevelData::writeData(const EnemyData *data, ofstream *writer)
+void LevelData::writeData(const EnemyData *edata, FILE *writer)
 {
-    stringstream s;
-    string str;
-
-    s.clear();
-    s.str("");
-    s << data->type;
-    str = s.str();
-    writer->write(str.c_str(),str.size());
-
-    s.clear();
-    s.str("");
-    s << data->hp;
-    str = s.str();
-    writer->write(str.c_str(),str.size());
-
-    s.clear();
-    s.str("");
-    s << data->att;
-    str = s.str();
-    writer->write(str.c_str(),str.size());
-
-
-    s.clear();
-    s.str("");
-    s << data->sh;
-    str = s.str();
-    writer->write(str.c_str(),str.size());
-
-    s.clear();
-    s.str("");
-    s << data->time;
-    str = s.str();
-    writer->write(str.c_str(),str.size());
-
-    s.clear();
-    s.str("");
-    s << data->y;
-    str = s.str();
-    writer->write(str.c_str(),str.size());
-
-    s.clear();
-    s.str("");
-    s << data->w;
-    str = s.str();
-    writer->write(str.c_str(),str.size());
-
-    s.clear();
-    s.str("");
-    s << data->h;
-    str = s.str();
-    writer->write(str.c_str(),str.size());
+    fwrite(&edata->type,sizeof(unsigned int),1,writer);
+    fwrite(&edata->hp,sizeof(unsigned int),1,writer);
+    fwrite(&edata->att,sizeof(unsigned int),1,writer);
+    fwrite(&edata->sh,sizeof(unsigned int),1,writer);
+    fwrite(&edata->time,sizeof(uint64_t),1,writer);
+    fwrite(&edata->y,sizeof(unsigned int),1,writer);
+    fwrite(&edata->w,sizeof(unsigned int),1,writer);
+    fwrite(&edata->h,sizeof(unsigned int),1,writer);
 }
 
 

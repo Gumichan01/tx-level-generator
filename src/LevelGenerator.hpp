@@ -49,7 +49,7 @@ class LevelData
     EnemyData *data;    /**< Information about each enemy */
 
     void read(const char *filename);
-    void writeData(const EnemyData *data,ofstream *writer);
+    void writeData(const EnemyData *edata,FILE *writer);
 
 public:
 
