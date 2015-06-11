@@ -255,7 +255,7 @@ void LevelData::writeData(const EnemyData *edata, FILE *writer)
     fwrite(&edata->hp,sizeof(unsigned int),1,writer);
     fwrite(&edata->att,sizeof(unsigned int),1,writer);
     fwrite(&edata->sh,sizeof(unsigned int),1,writer);
-    fwrite(&edata->time,sizeof(uint64_t),1,writer);
+    fwrite(&edata->time,sizeof(unsigned int),1,writer);
     fwrite(&edata->y,sizeof(unsigned int),1,writer);
     fwrite(&edata->w,sizeof(unsigned int),1,writer);
     fwrite(&edata->h,sizeof(unsigned int),1,writer);
