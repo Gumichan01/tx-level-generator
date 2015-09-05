@@ -55,7 +55,7 @@ LevelData::LevelData(const char *filename)
     read(filename);
 }
 
-
+// Read, extract, and store the data
 void LevelData::read(const char *filename)
 {
     ifstream reader;
@@ -81,6 +81,7 @@ void LevelData::read(const char *filename)
 
     cout << "Reading file: " << filename << endl;
 
+    // Read a line and get the number of data
     if(getline(reader,line))
     {
         if((pos = line.find(delimiter)) != string::npos)
@@ -95,6 +96,7 @@ void LevelData::read(const char *filename)
 
     cout << "Number of data to extract: " << size << endl;
 
+    // We have got the number of data to extract
     data = new (nothrow) EnemyData[size];
 
     if(data == NULL)
@@ -104,11 +106,15 @@ void LevelData::read(const char *filename)
         return;
     }
 
+    // Read the file line by line until the end of file
+    // or we read the number of data.
+    // Each line represent an enemy data
     while( i < size && getline(reader,line))
     {
         pos = 0;
         field = 0;
 
+        // Gets the tokens of the line an fill in the enemy data structure
         while((pos = line.find(delimiter)) != string::npos)
         {
             token = line.substr(0, pos);
@@ -160,8 +166,10 @@ void LevelData::read(const char *filename)
         }
 
         // End of line. Did we read the expected fields?
+        // If we read too much or not enough field, the file is not valid
         if(field != NB_FIELD)
         {
+            // Fail
             cerr << "Error: line #" << (i+2) << ": Expected " << NB_FIELD
                  << " fields; Got " << field <<" fields" << endl;
             delete [] data;
@@ -182,6 +190,9 @@ void LevelData::read(const char *filename)
 
     if(i < size)
     {
+        // The program read less data than expected
+        // This is not a pity because the program can
+        // write the given data into the generated file
         cout << "WARNING: Some data are missing, but the generation can be done" << endl;
         size = i;
     }
@@ -190,13 +201,13 @@ void LevelData::read(const char *filename)
 }
 
 
-
+// Generate the level file
 bool LevelData::generateFile(const char *filename)
 {
     FILE * writer;
     stringstream s;
     string str;
-    const int tag = 0xCF3A1;
+    const int tag = 0xCF3A1;    // This tag is necessary to check the file
 
     if(filename == NULL)
     {
@@ -234,12 +245,16 @@ bool LevelData::generateFile(const char *filename)
 
     const int n = size;
 
+    // Write the data into the level file
     for(int i = 0; i < n; i++)
     {
         cout << "Writing data #" << (i+1) << endl;
         writeData(&data[i],writer);
     }
 
+    // The tag is written again to be sure the file is still valid
+    // This tag is not checked in Target Xplsion
+    // This is just symbolic
     cout << "Writing tag at the end of the file" << endl;
 
     fwrite(&tag,sizeof(int),1,writer);
@@ -248,7 +263,7 @@ bool LevelData::generateFile(const char *filename)
     return true;
 }
 
-
+// There is no test to verify if the data was correcly written
 void LevelData::writeData(const EnemyData *edata, FILE *writer)
 {
     fwrite(&edata->type,sizeof(unsigned int),1,writer);
