@@ -125,40 +125,40 @@ void LevelData::read(const char *filename)
 
             switch(field)
             {
-                case 0 :
-                    valueStream >> data[i].type;
-                    break;
+            case 0 :
+                valueStream >> data[i].type;
+                break;
 
-                case 1 :
-                    valueStream >> data[i].hp;
-                    break;
+            case 1 :
+                valueStream >> data[i].hp;
+                break;
 
-                case 2 :
-                    valueStream >> data[i].att;
-                    break;
+            case 2 :
+                valueStream >> data[i].att;
+                break;
 
-                case 3 :
-                    valueStream >> data[i].sh;
-                    break;
+            case 3 :
+                valueStream >> data[i].sh;
+                break;
 
-                case 4 :
-                    valueStream >> data[i].time;
-                    break;
+            case 4 :
+                valueStream >> data[i].time;
+                break;
 
-                case 5 :
-                    valueStream >> data[i].y;
-                    break;
+            case 5 :
+                valueStream >> data[i].y;
+                break;
 
-                case 6 :
-                    valueStream >> data[i].w;
-                    break;
+            case 6 :
+                valueStream >> data[i].w;
+                break;
 
-                case 7 :
-                    valueStream >> data[i].h;
-                    break;
+            case 7 :
+                valueStream >> data[i].h;
+                break;
 
-                default :
-                    break;
+            default :
+                break;
             }
 
             line.erase(0, pos + delimiter.length());
