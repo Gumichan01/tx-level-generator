@@ -24,11 +24,14 @@ On Windows:
 
 This is an example of a text file you have to write:  
 
-    2
+    # A line comment (it will be ignored)
+    4
     101 20 10 5 4000 100 47 47
-    101 20 10 5 4500 200 47 47
+    102 20 10 5 4500 200 47 47
+    102 20 10 5 4500 300 47 47
+    # Another comment (ignored)
+    101 20 10 5 5000 100 47 47
 
-**Do not forget to add the space before the next line.**  
 
 First of all, the file has the number of lines that represents the number of
 enemy data.  
@@ -37,7 +40,7 @@ If you do not put the number, the program may fail or generate a bad file.
 After that, you have several lines. Each line represents an enemy data.  
 The syntax of each data is:  
 
-    [type]_[health]_[attack]_[defense]_[timeToAppear]_[Yposition]_[width]_[height]_
+    [type]_[health]_[attack]_[defense]_[timeToAppear]_[Yposition]_[width]_[height]
 
 NB : each '\_' is a space.  
 The type is the ID of the enemy. You can take a look on the wiki to get information about that.  
@@ -49,7 +52,7 @@ The *timeToAppear* value refers to the moment an enemy must go in the game.
 
 ### The generated file ###
 
-In Target Xpolosion, it is better to give the *.targetx* extension to the generated file.  
+In Target Xplosion, it is better to give the *.targetx* extension to the generated file.  
 However, the program does not check if the destination file has this extension.  
 Actually it will just check if the file exists in the directory and if it is valid.
 
