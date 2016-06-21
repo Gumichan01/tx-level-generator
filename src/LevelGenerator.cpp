@@ -38,16 +38,11 @@
 #include "LevelGenerator.hpp"
 #include "EnemyData.hpp"
 
-
 #define NB_FIELD 8
-
-
 using namespace std;
-
 
 namespace LevelGenerator
 {
-
 
 LevelData::LevelData(const char *filename)
 {
@@ -184,7 +179,6 @@ void LevelData::read(const char *filename)
                  << " " << data[i].time << " " << data[i].y << " " << data[i].w
                  << " " << data[i].h << endl;
         }
-
         i++;
     }
 
@@ -253,8 +247,6 @@ bool LevelData::generateFile(const char *filename)
     }
 
     // The tag is written again to be sure the file is still valid
-    // This tag is not checked in Target Xplsion
-    // This is just symbolic
     cout << "Writing tag at the end of the file" << endl;
 
     fwrite(&tag,sizeof(int),1,writer);
@@ -276,14 +268,9 @@ void LevelData::writeData(const EnemyData *edata, FILE *writer)
     fwrite(&edata->h,sizeof(unsigned int),1,writer);
 }
 
-
-
 LevelData::~LevelData()
 {
     delete [] data;
 }
 
 };
-
-
-

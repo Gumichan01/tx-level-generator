@@ -46,7 +46,4 @@ struct EnemyData
 
 };
 
-
 #endif // ENEMYDATA_HPP_INCLUDED
-
-

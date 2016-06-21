@@ -2,7 +2,6 @@
 #define LEVELGENERATOR_HPP_INCLUDED
 
 
-
 /*
 *   TX Level Generator - The level generator for Target Xplosion
 *	Copyright (C) 2016  Luxon Jean-Pierre
@@ -34,10 +33,8 @@
 
 #include <iostream>
 
-
 using namespace std;
 struct EnemyData;
-
 
 namespace LevelGenerator
 {
@@ -57,12 +54,8 @@ public:
     bool generateFile(const char *filename);
 
     ~LevelData();
-
 };
 
 };
-
 
 #endif // LEVELGENERATOR_HPP_INCLUDED
-
-
