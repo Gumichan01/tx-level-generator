@@ -39,6 +39,7 @@
 #include "EnemyData.hpp"
 
 #define NB_FIELD 8
+#define COMMENT_LINE '#'
 using namespace std;
 
 namespace LevelGenerator
@@ -77,16 +78,17 @@ void LevelData::read(const char *filename)
     cout << "Reading file: " << filename << endl;
 
     // Read a line and get the number of data
-    if(getline(reader,line))
+    while(getline(reader,line))
     {
-        if((pos = line.find(delimiter)) != string::npos)
-        {
-            token = line.substr(0, pos);
-            valueStream.clear();
-            valueStream.str("");
-            valueStream.str(token);
-            valueStream >> size;
-        }
+        if(line[0] == COMMENT_LINE)
+            continue;
+
+        token = line.substr(0, pos);
+        valueStream.clear();
+        valueStream.str("");
+        valueStream.str(token);
+        valueStream >> size;
+        break;
     }
 
     cout << "Number of data to extract: " << size << endl;
@@ -106,13 +108,17 @@ void LevelData::read(const char *filename)
     // Each line represent an enemy data
     while(i < size && getline(reader,line))
     {
+        if(line.empty() || line[0] == COMMENT_LINE)
+            continue;
+
         pos = 0;
         field = 0;
 
-        // Gets the tokens of the line an fill in the enemy data structure
-        while((pos = line.find(delimiter)) != string::npos)
+        // Gets the tokens of the line and fill in the enemy data structure
+        while((pos = line.find(delimiter)) != string::npos || !line.empty())
         {
-            token = line.substr(0, pos);
+            if(pos != string::npos)
+                token = line.substr(0, pos);
 
             valueStream.clear();
             valueStream.str("");
@@ -156,7 +162,11 @@ void LevelData::read(const char *filename)
                 break;
             }
 
-            line.erase(0, pos + delimiter.length());
+            if(field < NB_FIELD-1)
+                line.erase(0, pos + delimiter.length());
+            else
+                line.clear();
+
             field++;
         }
 
