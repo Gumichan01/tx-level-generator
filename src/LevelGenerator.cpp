@@ -117,11 +117,13 @@ void LevelData::read(const char *filename)
         // Gets the tokens of the line and fill in the enemy data structure
         while((pos = line.find(delimiter)) != string::npos || !line.empty())
         {
+            valueStream.clear();
+
             if(pos != string::npos)
                 token = line.substr(0, pos);
+            else
+                token = line;
 
-            valueStream.clear();
-            valueStream.str("");
             valueStream.str(token);
 
             switch(field)
