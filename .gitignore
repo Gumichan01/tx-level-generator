@@ -1,0 +1,7 @@
+#
+
+*.gch
+*.o
+*.a
+*tx-lvl-gen
+*.targetx
