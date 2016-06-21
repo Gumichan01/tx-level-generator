@@ -46,7 +46,7 @@ namespace LevelGenerator
 
 LevelData::LevelData(const char *filename)
 {
-    data = NULL;
+    data = nullptr;
     read(filename);
 }
 
@@ -63,7 +63,7 @@ void LevelData::read(const char *filename)
     int i = 0;
     size = 0;
 
-    if(filename == NULL)
+    if(filename == nullptr)
         return;
 
     reader.open(filename,ios::in);
@@ -94,7 +94,7 @@ void LevelData::read(const char *filename)
     // We have got the number of data to extract
     data = new (nothrow) EnemyData[size];
 
-    if(data == NULL)
+    if(data == nullptr)
     {
         cerr << "Error while creating data; Invalid size: " << size << endl;
         reader.close();
@@ -104,7 +104,7 @@ void LevelData::read(const char *filename)
     // Read the file line by line until the end of file
     // or we read the number of data.
     // Each line represent an enemy data
-    while( i < size && getline(reader,line))
+    while(i < size && getline(reader,line))
     {
         pos = 0;
         field = 0;
@@ -168,7 +168,7 @@ void LevelData::read(const char *filename)
             cerr << "Error: line #" << (i+2) << ": Expected " << NB_FIELD
                  << " fields; Got " << field <<" fields" << endl;
             delete [] data;
-            data = NULL;
+            data = nullptr;
             reader.close();
             break;
         }
@@ -203,13 +203,13 @@ bool LevelData::generateFile(const char *filename)
     string str;
     const int tag = 0xCF3A1;    // This tag is necessary to check the file
 
-    if(filename == NULL)
+    if(filename == nullptr)
     {
-        cerr << "Invalid file name: NULL" << endl;
+        cerr << "Invalid file name: nullptr" << endl;
         return false;
     }
 
-    if(data == NULL)
+    if(data == nullptr)
     {
         cerr << "No data available" << endl;
         return false;
@@ -223,7 +223,7 @@ bool LevelData::generateFile(const char *filename)
 
     writer = fopen(filename,"wb");
 
-    if(writer == NULL)
+    if(writer == nullptr)
     {
         cerr << "Internal error : try again !" << endl;
         return false;
