@@ -84,7 +84,6 @@ void LevelData::read(const char *filename)
 
         token = line.substr(0);
         valueStream.clear();
-        valueStream.str("");
         valueStream.str(token);
         valueStream >> size;
         break;
@@ -212,8 +211,6 @@ void LevelData::read(const char *filename)
 bool LevelData::generateFile(const char *filename)
 {
     FILE * writer;
-    stringstream s;
-    string str;
     const int tag = 0xCF3A1;    // This tag is necessary to check the file
 
     if(filename == nullptr)

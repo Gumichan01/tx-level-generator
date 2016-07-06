@@ -50,7 +50,7 @@ class LevelData
 
 public:
 
-    LevelData(const char *filename);
+    explicit LevelData(const char *filename);
     bool generateFile(const char *filename);
 
     ~LevelData();
