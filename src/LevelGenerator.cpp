@@ -59,7 +59,6 @@ void LevelData::read(const char *filename)
     string delimiter = " ";
     stringstream valueStream;
 
-    size_t pos;
     int field;
     int i = 0;
     size = 0;
@@ -83,7 +82,7 @@ void LevelData::read(const char *filename)
         if(line[0] == COMMENT_LINE)
             continue;
 
-        token = line.substr(0, pos);
+        token = line.substr(0);
         valueStream.clear();
         valueStream.str("");
         valueStream.str(token);
@@ -102,6 +101,8 @@ void LevelData::read(const char *filename)
         reader.close();
         return;
     }
+
+    size_t pos;
 
     // Read the file line by line until the end of file
     // or we read the number of data.
