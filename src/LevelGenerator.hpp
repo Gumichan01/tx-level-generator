@@ -21,7 +21,7 @@
 *
 *	Luxon Jean-Pierre (Gumichan01)
 *	website: https://gumichan01.github.io/
-*	mail : luxon.jean.pierre@gmail.com
+*	mail: luxon.jean.pierre@gmail.com
 */
 
 /**
