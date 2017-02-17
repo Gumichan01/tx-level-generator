@@ -22,7 +22,7 @@ On Windows:
 
 This is an example of a text file you have to write:
 
-    # A line comment (it will be ignored)
+    # A line of comment (it will be ignored)
     4
     101 20 10 5 4000 100 47 47
     102 20 10 5 4500 200 47 47
