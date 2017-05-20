@@ -56,6 +56,6 @@ public:
     ~LevelData();
 };
 
-};
+}
 
 #endif // LEVELGENERATOR_HPP_INCLUDED

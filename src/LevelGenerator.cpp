@@ -283,4 +283,4 @@ LevelData::~LevelData()
     delete [] data;
 }
 
-};
+}
