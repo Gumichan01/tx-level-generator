@@ -60,7 +60,7 @@ void LevelData::read(const char *filename)
     stringstream valueStream;
 
     int field;
-    int i = 0;
+    size_t i = 0;
     size = 0;
 
     if(filename == nullptr)
@@ -225,12 +225,6 @@ bool LevelData::generateFile(const char *filename)
         return false;
     }
 
-    if(size < 0)
-    {
-        cerr << "Invalid size" << endl;
-        return false;
-    }
-
     writer = fopen(filename,"wb");
 
     if(writer == nullptr)
@@ -247,10 +241,10 @@ bool LevelData::generateFile(const char *filename)
     cout << "Writing size" << endl;
     fwrite(&size,sizeof(int),1,writer);
 
-    const int n = size;
+    const size_t N = size;
 
     // Write the data into the level file
-    for(int i = 0; i < n; i++)
+    for(size_t i = 0; i < N; i++)
     {
         cout << "Writing data #" << (i+1) << endl;
         writeData(&data[i],writer);

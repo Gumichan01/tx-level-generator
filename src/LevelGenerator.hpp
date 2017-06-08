@@ -42,7 +42,7 @@ namespace LevelGenerator
 class LevelData
 {
 
-    int size;           /**< The number of enemies in the generated level */
+    size_t size;        /**< The number of enemies in the generated level */
     EnemyData *data;    /**< Information about each enemy */
 
     void read(const char *filename);
