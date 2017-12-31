@@ -4,7 +4,7 @@
 
 /*
 *   TX Level Generator - The level generator for Target Xplosion
-*	Copyright © 2017  Luxon Jean-Pierre
+*	Copyright © 2018 Luxon Jean-Pierre
 *
 *	This program is free software: you can redistribute it and/or modify
 *	it under the terms of the GNU General Public License as published by
