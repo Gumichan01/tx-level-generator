@@ -41,11 +41,17 @@ namespace LevelGenerator
 class LevelData
 {
 
-    size_t size;        /**< The number of enemies in the generated level */
-    EnemyData *data;    /**< Information about each enemy */
+    size_t size{0};             /**< The number of enemies in the level */
+    EnemyData *data{nullptr};   /**< Information about each enemy       */
 
     void read(const char *filename) noexcept;
     void writeData(const EnemyData *edata, FILE *writer) noexcept;
+
+    LevelData() = delete;
+    LevelData(const LevelData&) = delete;
+    LevelData(const LevelData&&) = delete;
+    LevelData& operator =(const LevelData&) = delete;
+    LevelData& operator =(const LevelData&&) = delete;
 
 public:
 

@@ -6,7 +6,7 @@ CC=g++
 DIR=src/
 EXEC=tx-lvl-gen
 
-FLAGS=-Wall -O3 -std=c++0x
+FLAGS=-Wall -Wextra -Weffc++ -O3 -std=c++11
 
 all : $(EXEC)
 
@@ -22,5 +22,5 @@ main.o : $(DIR)main.cpp
 clean :
 	rm -f *.o
 
-clear : clean
+mrproper : clean
 	rm -f $(EXEC)
