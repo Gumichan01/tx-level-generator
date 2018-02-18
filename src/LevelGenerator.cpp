@@ -70,11 +70,11 @@ void LevelData::read(const char *filename) noexcept
 
     if(reader.is_open() == false)
     {
-        cerr << "Cannot open " << filename << endl;
+        cerr << "Cannot open " << filename << "\n";
         return;
     }
 
-    cout << "Reading file: " << filename << endl;
+    cout << "Reading file: " << filename << "\n";
 
     // Read a line and get the number of data
     while(getline(reader,line))
@@ -89,14 +89,14 @@ void LevelData::read(const char *filename) noexcept
         break;
     }
 
-    cout << "Number of data to extract: " << size << endl;
+    cout << "Number of data to extract: " << size << "\n";
 
     // We have got the number of data to extract
     data = new (nothrow) EnemyData[size];
 
     if(data == nullptr)
     {
-        cerr << "Error while creating data; Invalid size: " << size << endl;
+        cerr << "Error while creating data; Invalid size: " << size << "\n";
         reader.close();
         return;
     }
@@ -178,7 +178,7 @@ void LevelData::read(const char *filename) noexcept
         {
             // Fail
             cerr << "Error: line #" << (i+2) << ": Expected " << NB_FIELD
-                 << " fields; Got " << field <<" fields" << endl;
+                 << " fields; Got " << field <<" fields\n";
             delete [] data;
             data = nullptr;
             reader.close();
@@ -189,7 +189,7 @@ void LevelData::read(const char *filename) noexcept
             cout << "Got Data "<<i<<" : \n" << data[i].type << " "
                  << data[i].hp << " " << data[i].att << " " << data[i].sh
                  << " " << data[i].time << " " << data[i].y << " " << data[i].w
-                 << " " << data[i].h << endl;
+                 << " " << data[i].h << "\n";
         }
         i++;
     }
@@ -199,7 +199,7 @@ void LevelData::read(const char *filename) noexcept
         // The program read less data than expected
         // This is not a pity because the program can
         // write the given data into the generated file
-        cout << "WARNING: Some data are missing, but the generation can be done" << endl;
+        cout << "WARNING: Some data are missing, but the generation can be done\n";
         size = i;
     }
 
@@ -208,20 +208,20 @@ void LevelData::read(const char *filename) noexcept
 
 
 // Generate the level file
-bool LevelData::generateFile(const char *filename)
+bool LevelData::generateFile(const char *filename) noexcept
 {
     FILE * writer;
     const int tag = 0xCF3A1;    // This tag is necessary to check the file
 
     if(filename == nullptr)
     {
-        cerr << "Invalid file name: nullptr" << endl;
+        cerr << "Invalid file name: nullptr\n";
         return false;
     }
 
     if(data == nullptr)
     {
-        cerr << "No data available" << endl;
+        cerr << "No data available\n";
         return false;
     }
 
@@ -229,16 +229,16 @@ bool LevelData::generateFile(const char *filename)
 
     if(writer == nullptr)
     {
-        cerr << "Internal error : try again !" << endl;
+        cerr << "Internal error : try again !\n";
         return false;
     }
 
-    cout << "Writing into file: " << filename << endl;
+    cout << "Writing into file: " << filename << "\n";
 
-    cout << "Writing tag" << endl;
+    cout << "Writing tag\n";
     fwrite(&tag,sizeof(int), 1, writer);
 
-    cout << "Writing size" << endl;
+    cout << "Writing size\n";
     fwrite(&size,sizeof(int), 1, writer);
 
     const size_t N = size;
@@ -246,12 +246,12 @@ bool LevelData::generateFile(const char *filename)
     // Write the data into the level file
     for(size_t i = 0; i < N; i++)
     {
-        cout << "Writing data #" << (i+1) << endl;
+        cout << "Writing data #" << (i+1) << "\n";
         writeData(&data[i], writer);
     }
 
     // The tag is written again to be sure the file is still valid
-    cout << "Writing tag at the end of the file" << endl;
+    cout << "Writing tag at the end of the file\n";
 
     fwrite(&tag,sizeof(int), 1, writer);
     fclose(writer);
@@ -260,7 +260,7 @@ bool LevelData::generateFile(const char *filename)
 }
 
 // There is no test to verify if the data was correcly written
-void LevelData::writeData(const EnemyData *edata, FILE *writer)
+void LevelData::writeData(const EnemyData *edata, FILE *writer) noexcept
 {
     fwrite(&edata->type, sizeof(unsigned int), 1, writer);
     fwrite(&edata->hp, sizeof(unsigned int), 1, writer);
