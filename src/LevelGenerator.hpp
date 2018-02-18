@@ -1,6 +1,3 @@
-#ifndef LEVELGENERATOR_HPP_INCLUDED
-#define LEVELGENERATOR_HPP_INCLUDED
-
 
 /*
 *   TX Level Generator - The level generator for Target Xplosion
@@ -24,11 +21,13 @@
 *	mail: luxon.jean.pierre@gmail.com
 */
 
+#ifndef LEVELGENERATOR_HPP_INCLUDED
+#define LEVELGENERATOR_HPP_INCLUDED
+
 /**
 *	@file LevelGenerator.hpp
 *	@brief The level generator library
 *	@author Luxon Jean-Pierre(Gumichan01)
-*
 */
 
 #include <iostream>

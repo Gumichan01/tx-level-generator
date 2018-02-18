@@ -21,13 +21,6 @@
 *	mail: luxon.jean.pierre@gmail.com
 */
 
-/**
-*	@file LevelGenerator.cpp
-*	@brief The level generator implementation
-*	@author Luxon Jean-Pierre(Gumichan01)
-*
-*/
-
 #include <cstdio>
 #include <cstdlib>
 
