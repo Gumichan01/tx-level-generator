@@ -45,13 +45,13 @@ class LevelData
     size_t size;        /**< The number of enemies in the generated level */
     EnemyData *data;    /**< Information about each enemy */
 
-    void read(const char *filename);
-    void writeData(const EnemyData *edata,FILE *writer);
+    void read(const char *filename) noexcept;
+    void writeData(const EnemyData *edata, FILE *writer) noexcept;
 
 public:
 
     explicit LevelData(const char *filename);
-    bool generateFile(const char *filename);
+    bool generateFile(const char *filename) noexcept;
 
     ~LevelData();
 };
