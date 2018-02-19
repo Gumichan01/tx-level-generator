@@ -1,6 +1,3 @@
-#ifndef ENEMYDATA_HPP_INCLUDED
-#define ENEMYDATA_HPP_INCLUDED
-
 
 /*
 *   TX Level Generator - The level generator for Target Xplosion
@@ -23,6 +20,10 @@
 *	website: https://gumichan01.github.io/
 *	mail: luxon.jean.pierre@gmail.com
 */
+
+#ifndef ENEMYDATA_HPP_INCLUDED
+#define ENEMYDATA_HPP_INCLUDED
+
 
 /**
 *	@file EnemyData.hpp
