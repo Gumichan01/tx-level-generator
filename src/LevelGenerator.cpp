@@ -218,7 +218,7 @@ bool LevelData::generateFile(const char *filename) noexcept
         return false;
     }
 
-    writer = fopen(filename, "wb");
+    writer = std::fopen(filename, "wb");
 
     if(writer == nullptr)
     {
@@ -229,10 +229,10 @@ bool LevelData::generateFile(const char *filename) noexcept
     cout << "Writing into file: " << filename << "\n";
 
     cout << "Writing tag\n";
-    fwrite(&tag,sizeof(int), 1, writer);
+    std::fwrite(&tag,sizeof(int), 1, writer);
 
     cout << "Writing size\n";
-    fwrite(&size,sizeof(int), 1, writer);
+    std::fwrite(&size,sizeof(int), 1, writer);
 
     const size_t N = size;
 
@@ -246,8 +246,8 @@ bool LevelData::generateFile(const char *filename) noexcept
     // The tag is written again to be sure the file is still valid
     cout << "Writing tag at the end of the file\n";
 
-    fwrite(&tag,sizeof(int), 1, writer);
-    fclose(writer);
+    std::fwrite(&tag,sizeof(int), 1, writer);
+    std::fclose(writer);
 
     return true;
 }
@@ -255,14 +255,14 @@ bool LevelData::generateFile(const char *filename) noexcept
 // There is no test to verify if the data was correcly written
 void LevelData::writeData(const EnemyData *edata, FILE *writer) noexcept
 {
-    fwrite(&edata->type, sizeof(unsigned int), 1, writer);
-    fwrite(&edata->hp, sizeof(unsigned int), 1, writer);
-    fwrite(&edata->att, sizeof(unsigned int), 1, writer);
-    fwrite(&edata->sh, sizeof(unsigned int), 1, writer);
-    fwrite(&edata->time, sizeof(unsigned int), 1, writer);
-    fwrite(&edata->y, sizeof(unsigned int), 1, writer);
-    fwrite(&edata->w, sizeof(unsigned int), 1, writer);
-    fwrite(&edata->h, sizeof(unsigned int), 1, writer);
+    std::fwrite(&edata->type, sizeof(unsigned int), 1, writer);
+    std::fwrite(&edata->hp, sizeof(unsigned int), 1, writer);
+    std::fwrite(&edata->att, sizeof(unsigned int), 1, writer);
+    std::fwrite(&edata->sh, sizeof(unsigned int), 1, writer);
+    std::fwrite(&edata->time, sizeof(unsigned int), 1, writer);
+    std::fwrite(&edata->y, sizeof(unsigned int), 1, writer);
+    std::fwrite(&edata->w, sizeof(unsigned int), 1, writer);
+    std::fwrite(&edata->h, sizeof(unsigned int), 1, writer);
 }
 
 LevelData::~LevelData()

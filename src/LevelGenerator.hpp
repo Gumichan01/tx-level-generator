@@ -38,7 +38,7 @@ struct EnemyData;
 namespace LevelGenerator
 {
 
-class LevelData
+class LevelData final
 {
 
     size_t size{0};             /**< The number of enemies in the level */

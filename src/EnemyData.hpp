@@ -34,7 +34,7 @@
 
 #include <cstdint>
 
-struct EnemyData
+struct EnemyData final
 {
     unsigned int type;          /**< The ID of an enemy */
     unsigned int hp;            /**< The health points of the enemy */
