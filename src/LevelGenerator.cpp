@@ -38,14 +38,14 @@ using namespace std;
 namespace LevelGenerator
 {
 
-LevelData::LevelData(const char *filename)
+LevelData::LevelData( const char * filename )
 {
     data = nullptr;
-    read(filename);
+    read( filename );
 }
 
 // Read, extract, and store the data
-void LevelData::read(const char *filename) noexcept
+void LevelData::read( const char * filename ) noexcept
 {
     ifstream reader;
     string line, token;
@@ -56,12 +56,12 @@ void LevelData::read(const char *filename) noexcept
     size_t i = 0;
     size = 0;
 
-    if(filename == nullptr)
+    if ( filename == nullptr )
         return;
 
-    reader.open(filename,ios::in);
+    reader.open( filename, ios::in );
 
-    if(reader.is_open() == false)
+    if ( reader.is_open() == false )
     {
         cerr << "Cannot open " << filename << "\n";
         return;
@@ -70,14 +70,14 @@ void LevelData::read(const char *filename) noexcept
     cout << "Reading file: " << filename << "\n";
 
     // Read a line and get the number of data
-    while(getline(reader,line))
+    while ( getline( reader, line ) )
     {
-        if(line[0] == COMMENT_LINE)
+        if ( line[0] == COMMENT_LINE )
             continue;
 
-        token = line.substr(0);
+        token = line.substr( 0 );
         valueStream.clear();
-        valueStream.str(token);
+        valueStream.str( token );
         valueStream >> size;
         break;
     }
@@ -85,9 +85,9 @@ void LevelData::read(const char *filename) noexcept
     cout << "Number of data to extract: " << size << "\n";
 
     // We have got the number of data to extract
-    data = new (nothrow) EnemyData[size];
+    data = new ( nothrow ) EnemyData[size];
 
-    if(data == nullptr)
+    if ( data == nullptr )
     {
         cerr << "Error while creating data; Invalid size: " << size << "\n";
         reader.close();
@@ -99,27 +99,27 @@ void LevelData::read(const char *filename) noexcept
     // Read the file line by line until the end of file
     // or we read the number of data.
     // Each line represent an enemy data
-    while(i < size && getline(reader,line))
+    while ( i < size && getline( reader, line ) )
     {
-        if(line.empty() || line[0] == COMMENT_LINE)
+        if ( line.empty() || line[0] == COMMENT_LINE )
             continue;
 
         pos = 0;
         field = 0;
 
         // Gets the tokens of the line and fill in the enemy data structure
-        while((pos = line.find(delimiter)) != string::npos || !line.empty())
+        while ( ( pos = line.find( delimiter ) ) != string::npos || !line.empty() )
         {
             valueStream.clear();
 
-            if(pos != string::npos)
-                token = line.substr(0, pos);
+            if ( pos != string::npos )
+                token = line.substr( 0, pos );
             else
                 token = line;
 
-            valueStream.str(token);
+            valueStream.str( token );
 
-            switch(field)
+            switch ( field )
             {
             case 0 :
                 valueStream >> data[i].type;
@@ -157,8 +157,8 @@ void LevelData::read(const char *filename) noexcept
                 break;
             }
 
-            if(field < NB_FIELD-1)
-                line.erase(0, pos + delimiter.length());
+            if ( field < NB_FIELD - 1 )
+                line.erase( 0, pos + delimiter.length() );
             else
                 line.clear();
 
@@ -167,11 +167,11 @@ void LevelData::read(const char *filename) noexcept
 
         // End of line. Did we read the expected fields?
         // If we read too much or not enough field, the file is not valid
-        if(field != NB_FIELD)
+        if ( field != NB_FIELD )
         {
             // Fail
-            cerr << "Error: line #" << (i+2) << ": Expected " << NB_FIELD
-                 << " fields; Got " << field <<" fields\n";
+            cerr << "Error: line #" << ( i + 2 ) << ": Expected " << NB_FIELD
+                 << " fields; Got " << field << " fields\n";
             delete [] data;
             data = nullptr;
             reader.close();
@@ -179,7 +179,7 @@ void LevelData::read(const char *filename) noexcept
         }
         else
         {
-            cout << "Got Data "<<i<<" : \n" << data[i].type << " "
+            cout << "Got Data " << i << " : \n" << data[i].type << " "
                  << data[i].hp << " " << data[i].att << " " << data[i].sh
                  << " " << data[i].time << " " << data[i].y << " " << data[i].w
                  << " " << data[i].h << "\n";
@@ -187,7 +187,7 @@ void LevelData::read(const char *filename) noexcept
         i++;
     }
 
-    if(i < size)
+    if ( i < size )
     {
         // The program read less data than expected
         // This is not a pity because the program can
@@ -201,26 +201,26 @@ void LevelData::read(const char *filename) noexcept
 
 
 // Generate the level file
-bool LevelData::generateFile(const char *filename) noexcept
+bool LevelData::generateFile( const char * filename ) noexcept
 {
     FILE * writer;
     const int tag = 0xCF3A1;    // This tag is necessary to check the file
 
-    if(filename == nullptr)
+    if ( filename == nullptr )
     {
         cerr << "Invalid file name: nullptr\n";
         return false;
     }
 
-    if(data == nullptr)
+    if ( data == nullptr )
     {
         cerr << "No data available\n";
         return false;
     }
 
-    writer = std::fopen(filename, "wb");
+    writer = std::fopen( filename, "wb" );
 
-    if(writer == nullptr)
+    if ( writer == nullptr )
     {
         cerr << "Internal error : try again !\n";
         return false;
@@ -229,40 +229,40 @@ bool LevelData::generateFile(const char *filename) noexcept
     cout << "Writing into file: " << filename << "\n";
 
     cout << "Writing tag\n";
-    std::fwrite(&tag,sizeof(int), 1, writer);
+    std::fwrite( &tag, sizeof( int ), 1, writer );
 
     cout << "Writing size\n";
-    std::fwrite(&size,sizeof(int), 1, writer);
+    std::fwrite( &size, sizeof( int ), 1, writer );
 
     const size_t N = size;
 
     // Write the data into the level file
-    for(size_t i = 0; i < N; i++)
+    for ( size_t i = 0; i < N; i++ )
     {
-        cout << "Writing data #" << (i+1) << "\n";
-        writeData(&data[i], writer);
+        cout << "Writing data #" << ( i + 1 ) << "\n";
+        writeData( &data[i], writer );
     }
 
     // The tag is written again to be sure the file is still valid
     cout << "Writing tag at the end of the file\n";
 
-    std::fwrite(&tag,sizeof(int), 1, writer);
-    std::fclose(writer);
+    std::fwrite( &tag, sizeof( int ), 1, writer );
+    std::fclose( writer );
 
     return true;
 }
 
 // There is no test to verify if the data was correcly written
-void LevelData::writeData(const EnemyData *edata, FILE *writer) noexcept
+void LevelData::writeData( const EnemyData * edata, FILE * writer ) noexcept
 {
-    std::fwrite(&edata->type, sizeof(unsigned int), 1, writer);
-    std::fwrite(&edata->hp, sizeof(unsigned int), 1, writer);
-    std::fwrite(&edata->att, sizeof(unsigned int), 1, writer);
-    std::fwrite(&edata->sh, sizeof(unsigned int), 1, writer);
-    std::fwrite(&edata->time, sizeof(unsigned int), 1, writer);
-    std::fwrite(&edata->y, sizeof(unsigned int), 1, writer);
-    std::fwrite(&edata->w, sizeof(unsigned int), 1, writer);
-    std::fwrite(&edata->h, sizeof(unsigned int), 1, writer);
+    std::fwrite( &edata->type, sizeof( unsigned int ), 1, writer );
+    std::fwrite( &edata->hp, sizeof( unsigned int ), 1, writer );
+    std::fwrite( &edata->att, sizeof( unsigned int ), 1, writer );
+    std::fwrite( &edata->sh, sizeof( unsigned int ), 1, writer );
+    std::fwrite( &edata->time, sizeof( unsigned int ), 1, writer );
+    std::fwrite( &edata->y, sizeof( unsigned int ), 1, writer );
+    std::fwrite( &edata->w, sizeof( unsigned int ), 1, writer );
+    std::fwrite( &edata->h, sizeof( unsigned int ), 1, writer );
 }
 
 LevelData::~LevelData()

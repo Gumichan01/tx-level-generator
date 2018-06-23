@@ -28,9 +28,9 @@ using namespace std;
 using namespace LevelGenerator;
 
 
-int main(int argc, char **argv)
+int main( int argc, char ** argv )
 {
-    if(argc < 3)
+    if ( argc < 3 )
     {
         cerr << "Usage: TX-level-generator " << "<text_file> "
              << "<file_to_write_data>\n";
@@ -40,9 +40,9 @@ int main(int argc, char **argv)
     cout << "TX Level Generator - The level generator for Target Xplosion\n"
          << "Copyright © 2018 Luxon Jean-Pierre\n\n";
 
-    LevelData data(argv[1]);
+    LevelData data( argv[1] );
 
-    if(data.generateFile(argv[2]) == false)
+    if ( data.generateFile( argv[2] ) == false )
     {
         cerr << "Cannot generate the following file: " << argv[2] << "\n";
         return -2;

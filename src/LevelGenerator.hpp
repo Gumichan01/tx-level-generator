@@ -42,21 +42,21 @@ class LevelData final
 {
 
     size_t size{0};             /**< The number of enemies in the level */
-    EnemyData *data{nullptr};   /**< Information about each enemy       */
+    EnemyData * data{nullptr};  /**< Information about each enemy       */
 
-    void read(const char *filename) noexcept;
-    void writeData(const EnemyData *edata, FILE *writer) noexcept;
+    void read( const char * filename ) noexcept;
+    void writeData( const EnemyData * edata, FILE * writer ) noexcept;
 
     LevelData() = delete;
-    LevelData(const LevelData&) = delete;
-    LevelData(const LevelData&&) = delete;
-    LevelData& operator =(const LevelData&) = delete;
-    LevelData& operator =(const LevelData&&) = delete;
+    LevelData( const LevelData& ) = delete;
+    LevelData( const LevelData&& ) = delete;
+    LevelData& operator =( const LevelData& ) = delete;
+    LevelData& operator =( const LevelData&& ) = delete;
 
 public:
 
-    explicit LevelData(const char *filename);
-    bool generateFile(const char *filename) noexcept;
+    explicit LevelData( const char * filename );
+    bool generateFile( const char * filename ) noexcept;
 
     ~LevelData();
 };
